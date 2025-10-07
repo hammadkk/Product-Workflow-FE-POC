@@ -27,14 +27,22 @@ const NotificationList: React.FC = () => {
   const navigate = useNavigate();
   const { data, loading, error, refetch } = useQuery(GET_ALL_NOTIFICATIONS);
   const [updateNotification] = useMutation(UPDATE_NOTIFICATION);
-  const [snackbar, setSnackbar] = React.useState<{ open: boolean; message: string }>({
+  const [snackbar, setSnackbar] = React.useState<{
+    open: boolean;
+    message: string;
+  }>({
     open: false,
     message: "",
   });
 
   if (loading)
     return (
-      <Box display="flex" justifyContent="center" alignItems="center" height="60vh">
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="60vh"
+      >
         <CircularProgress />
       </Box>
     );
@@ -50,7 +58,10 @@ const NotificationList: React.FC = () => {
     (notif: any) => notif.isModified === false
   );
 
-  const handleApproveOrReject = async (notif: any) => {
+  const handleApproveOrReject = async (
+    notif: any,
+    approval: boolean = false
+  ) => {
     try {
       await updateNotification({
         variables: {
@@ -58,6 +69,7 @@ const NotificationList: React.FC = () => {
             id: notif.id,
             isModified: true,
           },
+          approval,
         },
       });
       setSnackbar({ open: true, message: "Notification Updated ✅" });
@@ -124,7 +136,7 @@ const NotificationList: React.FC = () => {
                     <Tooltip title="Approve">
                       <IconButton
                         color="success"
-                        onClick={() => handleApproveOrReject(notif)}
+                        onClick={() => handleApproveOrReject(notif, true)}
                       >
                         <CheckCircleIcon />
                       </IconButton>
@@ -133,7 +145,7 @@ const NotificationList: React.FC = () => {
                     <Tooltip title="Reject">
                       <IconButton
                         color="error"
-                        onClick={() => handleApproveOrReject(notif)}
+                        onClick={() => handleApproveOrReject(notif, false)}
                       >
                         <CancelIcon />
                       </IconButton>

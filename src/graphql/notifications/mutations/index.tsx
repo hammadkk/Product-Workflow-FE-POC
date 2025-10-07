@@ -1,7 +1,9 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const CREATE_NOTIFICATION = gql`
-  mutation CreateNotification($createNotificationInput: CreateNotificationInput!) {
+  mutation CreateNotification(
+    $createNotificationInput: CreateNotificationInput!
+  ) {
     createNotification(createNotificationInput: $createNotificationInput) {
       id
       userId
@@ -15,8 +17,14 @@ export const CREATE_NOTIFICATION = gql`
 `;
 
 export const UPDATE_NOTIFICATION = gql`
-  mutation UpdateNotification($updateNotificationInput: UpdateNotificationInput!) {
-    updateNotification(updateNotificationInput: $updateNotificationInput) {
+  mutation UpdateNotification(
+    $updateNotificationInput: UpdateNotificationInput!
+    $approval: Boolean = false
+  ) {
+    updateNotification(
+      updateNotificationInput: $updateNotificationInput
+      approval: $approval
+    ) {
       id
       userId
       workflowId
