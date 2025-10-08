@@ -121,6 +121,27 @@ const ProductDashboard: React.FC = () => {
           View Notifications
         </Button>
 
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => navigate('/Flow')}
+          sx={{
+            textTransform: 'none',
+            fontWeight: 600,
+            px: 3,
+            py: 1.2,
+            borderRadius: 3,
+               background: 'linear-gradient(45deg, #189bf2ff, #266fe3ff)',
+            boxShadow: '0 3px 10px rgba(255, 61, 0, 0.3)',
+            '&:hover': {
+               background: 'linear-gradient(45deg, #71e7e7ff, #5fd8e6ff)',
+            },
+          }}
+        >
+          Flow
+        </Button>
+
+
         {/* Add Product Button */}
         <IconButton onClick={() => setShowForm(prev => !prev)} color="primary" size="large">
           {showForm ? <CloseIcon /> : <AddIcon />}
